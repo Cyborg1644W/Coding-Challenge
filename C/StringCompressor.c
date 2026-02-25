@@ -5,7 +5,8 @@ void strCompress(char string[]) {
     int current_index = 0;
     int count = 0;
     char compress[100];
-    for(int i = 0; i < strlen(string); i++) {
+    int len = strlen(string);
+    for(int i = 0; i < len; i++) {
         if(string[i] == string[i+1]) {
             count++;
         } else {

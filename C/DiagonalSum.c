@@ -4,8 +4,6 @@ void DiagonalSum(int array[][50], int size) {
     int totalSum = 0;
     for(int i = 0; i < size; i++) {
         totalSum += array[i][i];
-    }
-    for(int i = 0; i < size; i++) {
         totalSum += array[i][(size-1)-i];
     }
     if((size & 1) == 1) {
