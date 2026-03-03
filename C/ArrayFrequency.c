@@ -5,7 +5,6 @@ void displayArray(int rows, int column, int array[][100]);
 void getCornerSum(int rows, int column, int array[][100]);
 int getInteger(char *prompt);
 
-
 int main() {
     int rows = getInteger("Enter Number of Rows: ");
     int column = getInteger("Enter Number of Column: ");
@@ -28,12 +27,24 @@ int getInteger(char* prompt) {
     return i;
 }
 
+
 void makeArray(int rows, int column, int array[][100]) {
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j < column; j++) {
             array[i][j] = getInteger("Enter a Number: ");
         }
     }
+}
+
+void displayArray(int rows, int column, int array[][100]) {
+    printf("\n");
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < column; j++) {
+            printf("%d\t", array[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
 }
 
 void getCornerSum(int rows, int column, int array[][100]) {
@@ -49,15 +60,4 @@ void getCornerSum(int rows, int column, int array[][100]) {
         }
     }
     printf("The Total Corner Sum is %d\n\n", sum);
-}
-
-void displayArray(int rows, int column, int array[][100]) {
-    printf("\n");
-    for(int i = 0; i < rows; i++) {
-        for(int j = 0; j < column; j++) {
-            printf("%d\t", array[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
 }

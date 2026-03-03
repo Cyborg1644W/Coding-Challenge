@@ -8,8 +8,6 @@ typedef struct {
     char names[100];
 }Driver;
 
-
-
 int main() {
     Driver leaderboard[] = {
         {38, "Reindel"},
@@ -35,3 +33,4 @@ int main() {
         printf("%d.) %s - %d minutes\n", i + 1, leaderboard[i].names, leaderboard[i].time);
     }
 }
+

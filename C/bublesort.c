@@ -1,12 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 void sortArray(int size, int array[]);
 int getInteger(char* prompt);
 void makeArray(int size, int array[]);
 void displayArray(int size, int array[]);
-int compare(const void* a, const void* b);
-
 
 int main() {
     int size = getInteger("Enter Array Size: ");
@@ -14,7 +11,7 @@ int main() {
 
     makeArray(size, numArray);
     displayArray(size, numArray);
-    qsort(numArray, size, sizeof(int), compare);
+    sortArray(size, numArray);
     displayArray(size, numArray);
 
     return 0;
@@ -55,8 +52,4 @@ void displayArray(int size, int array[]) {
         printf("%d\t", array[i]);
     }
     printf("\n");
-}
-
-int compare(const void* a, const void* b) {
-    return (*(int*)a - *(int*)b);
 }

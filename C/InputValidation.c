@@ -1,9 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-
-int numbers[100] = {23, 5, 81, 47, 62, 9, 14, 77, 53, 30};
-int numbersSize = 0;
-
 #include <stdio.h>
 #include <stdlib.h>
 

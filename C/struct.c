@@ -1,11 +1,10 @@
 #include <stdio.h>
 
-
 typedef struct  {
     int num;
     int size;
-}number;
 
+}number;
 
 int main() {
     number ID;
