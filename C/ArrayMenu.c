@@ -25,16 +25,28 @@ void sortArray();
 
 int main() {
     int array[100];
+    int choice;
+    bool isRunning = true;
+
     do {
-        switch(showMenu()) {
+        choice= showMenu();
+        switch(choice) {
             case 1:
                 createArray(array);
                 break;
             case 2:
-                
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                isRunning = false;
+                break;
+            default:
+                break;
         }
-
-    } while ( );
+    } while (isRunning);
 
     return 0;
 }
@@ -63,11 +75,11 @@ int getChoice(const char* prompt, int start, int end) {
     while(true) {
         printf("%s", prompt);
         if(scanf("%d", &num) != 1) {
-            printf(INDENT RED "[ERROR] " YELLOW "Invalid Character\n");
+            printf(INDENT RED "[ERROR] " YELLOW "Invalid Character\n"RESET);
             clearBuffer();
         } 
         else if(num < start || num > end) {
-            printf(INDENT RED "[ERROR] " YELLOW "Number Out of Range\n");
+            printf(INDENT RED "[ERROR] " YELLOW "Number Out of Range\n"RESET);
             clearBuffer();
         } else {
             clearBuffer();
@@ -89,4 +101,6 @@ void createArray(int array[]) {
     }
 }
 
-void sortArray() 
+void sortArray() {
+
+}
