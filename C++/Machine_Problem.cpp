@@ -6,7 +6,6 @@ using std::endl;
 using std::cout;
 using std::string;
 
-
 #ifdef _WIN32 
     void clear_screen() {
         system("cls");
@@ -27,11 +26,13 @@ using std::string;
 #define RESET   "\033[0m"
 
 int displayMenu();
+void wait_for_enter();
+void delete_previous_output();
 int getPositiveInt(string prompt);
 string getStringNoNumbers(string prompt);
 void getSale(string names[], int sales[], int& counter);
 void displaySales(string names[], int sales[], int& counter);
-void wait_for_enter();
+
 
 int main() {
 
@@ -47,20 +48,17 @@ int main() {
                 getSale(itemNames, itemSales, counter);
                 break;
             case 2:
-
+                displaySales(itemNames, itemSales, counter);
                 break;
             case 3:
                 break;
             case 4:
-                break;
-            case 5:
+                break; 
                 break;
             default:
                 break;
-            
         }
     }
-    
     return 0;
 }
 
@@ -81,19 +79,32 @@ int displayMenu() {
     return choice;
 }
 
+void wait_for_enter() {
+    cout << YELLOW "Press Enter to Continue..";
+    getchar();
+    delete_previous_output();
+}
+
+void delete_previous_output() {
+    cout << "\033[F\033[K";
+    cout << "\033[F\033[K";
+    cout << "\033[F\033[K";
+}
+
 int getPositiveInt(string prompt) {
     int x;
 
     while (true) {
-        cout << prompt;
+        cout << BLUE + prompt;
         cout << B_GREEN;
         cin >> x;
+        cout << RESET;
         
         if (cin.fail() || x <= 0) {
-            clear_screen();
             cin.clear();
             cin.ignore(1000, '\n'); // simple cleanup
-            cout << RED "Positive Integer Only\n";
+            cout << RED "Positive Integer Only\n" RESET;
+            wait_for_enter();
             
         } else {
             cin.ignore(1000, '\n');
@@ -106,11 +117,13 @@ string getStringNoNumbers(string prompt) {
     string input;
 
     while (true) {
-        cout << prompt;
+        cout << BLUE + prompt;
+        cout << B_GREEN;
         getline(cin, input);
 
         if (input == "") {
-            cout << "Input cannot be empty.\n";
+            cout << RED "Input cannot be empty.\n" RESET;
+            wait_for_enter();
             continue;
         }
 
@@ -124,8 +137,8 @@ string getStringNoNumbers(string prompt) {
 
         if (valid)
             return input;
-
-        cout << "Letters only. Try again.\n";
+        cout << RED "Letters only. Try again.\n" RESET;
+        wait_for_enter();
     }
 }
 
@@ -134,8 +147,17 @@ void getSale(string names[], int sales[], int& counter) {
     names[counter] = getStringNoNumbers("Enter The Item Name : ");
     sales[counter] = getPositiveInt("Enter The Item Sales : ");
     counter++;
+    cout << CYAN "Item Successfully Added\n";
+    wait_for_enter();
+
 }
 
-void wait_for_enter() {
-     
+void displaySales(string names[], int sales[], int& counter) {
+    clear_screen();
+    for(int i = 0; i < counter; i++) {
+
+    }
 }
+
+
+
