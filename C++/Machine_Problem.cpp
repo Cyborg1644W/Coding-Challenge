@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <cstdio>
+#include <windows.h>
 
 using std::cin;
 using std::endl;
@@ -11,7 +13,7 @@ using std::string;
         system("cls");
         cout << "\n\n";
     }
-    #else
+#else
     void clear_screen() {
         system("clear");
         cout << "\n\n";
@@ -31,11 +33,12 @@ void delete_previous_output();
 int getPositiveInt(string prompt);
 string getStringNoNumbers(string prompt);
 void getSale(string names[], int sales[], int& counter);
-void displaySales(string names[], int sales[], int& counter);
+void displaySales(string names[], int sales[], int counter);
+void sortSales(string names[], int sales[], int counter);
+void displayGraph(string names[], int sales[], int counter);
 
 
 int main() {
-
     string itemNames[100];
     int itemSales[100];
     int counter = 0;
@@ -48,14 +51,31 @@ int main() {
                 getSale(itemNames, itemSales, counter);
                 break;
             case 2:
+                clear_screen(); 
+                if (counter == 0) {
+                    cout << RED "[!] ERROR: NO DATA LOGGED\n";
+                    wait_for_enter();
+                    break;
+                }
+                cout << CYAN "===========SALES===========\n" << endl;
                 displaySales(itemNames, itemSales, counter);
                 break;
             case 3:
+                sortSales(itemNames, itemSales, counter);
                 break;
             case 4:
+                displayGraph(itemNames, itemSales, counter);
                 break; 
+            case 5:
+                isRunning = false;
+                clear_screen();
+                cout << B_GREEN "  [!] STATUS: SYSTEM SHUTDOWN SUCCESSFUL\n";
+                cout << "  [i] ACTION: You may now safely close this window.\n";
+                cout << "  [i] INFO  : Thank you for using Sales Tracking System v1.0\n" RESET;
                 break;
             default:
+                cout << RED "Input out of range. Maximum value allowed is 5.\n";
+                wait_for_enter();
                 break;
         }
     }
@@ -64,6 +84,7 @@ int main() {
 
 int displayMenu() {
     clear_screen();
+    
     int choice;
     cout << YELLOW"[1] " CYAN"Enter Sales\n" RESET;
     cout << YELLOW"[2] " CYAN"Display Sales\n" RESET;
@@ -71,11 +92,8 @@ int displayMenu() {
     cout << YELLOW"[4] " CYAN"Bar Graph\n" RESET;
     cout << YELLOW"[5] " CYAN"Exit\n" RESET;
 
-    do {
-        cout << BLUE "\n";
-        choice = getPositiveInt("--> ");
-    } while(choice < 1 || choice > 5);
-
+    cout << BLUE "\n";
+    choice = getPositiveInt("--> ");
     return choice;
 }
 
@@ -103,7 +121,7 @@ int getPositiveInt(string prompt) {
         if (cin.fail() || x <= 0) {
             cin.clear();
             cin.ignore(1000, '\n'); // simple cleanup
-            cout << RED "Positive Integer Only\n" RESET;
+            cout << RED "[i] ACTION: Please enter numbers only (e.g., 1500 or 99.50).\n" RESET;
             wait_for_enter();
             
         } else {
@@ -122,7 +140,7 @@ string getStringNoNumbers(string prompt) {
         getline(cin, input);
 
         if (input == "") {
-            cout << RED "Input cannot be empty.\n" RESET;
+            cout << RED "[i] ACTION: Input field cannot be empty.\n" RESET;
             wait_for_enter();
             continue;
         }
@@ -137,27 +155,78 @@ string getStringNoNumbers(string prompt) {
 
         if (valid)
             return input;
-        cout << RED "Letters only. Try again.\n" RESET;
+        cout << RED "[i] ALERT: Use letters only." RESET;
         wait_for_enter();
     }
 }
 
 void getSale(string names[], int sales[], int& counter) {
-    clear_screen();
-    names[counter] = getStringNoNumbers("Enter The Item Name : ");
-    sales[counter] = getPositiveInt("Enter The Item Sales : ");
-    counter++;
-    cout << CYAN "Item Successfully Added\n";
-    wait_for_enter();
-
-}
-
-void displaySales(string names[], int sales[], int& counter) {
-    clear_screen();
-    for(int i = 0; i < counter; i++) {
+    while(1) {
+        clear_screen();
+        cout << YELLOW "TOTAL ITEM : " << counter << RESET << endl;
+        string ask = getStringNoNumbers("Enter The Item Name ('Q' to quit) : ");
+        if (ask == "q" || ask == "Q") {
+            break;
+        }
+        names[counter] = ask;
+        sales[counter] = getPositiveInt("Enter The Item Sales : ");
+        counter++;
 
     }
 }
 
+void displaySales(string names[], int sales[], int counter) {
+    printf("                  Quantity\n");
+    for(int i = 0; i < counter; i++) {
+        printf("%-15s :  %8d\n", names[i].c_str(), sales[i]);
+    }
+    wait_for_enter();
+}
 
+void sortSales(string names[], int sales[], int counter) {
+    clear_screen();
+    if (counter == 0) {
+        cout << RED "[!] ERROR: NO DATA LOGGED\n";
+        wait_for_enter();
+    } else {
+        string tempNames[100];
+        int tempSales[100];
+        for (int i = 0; i < counter; i++) {
+            tempNames[i] = names[i];
+            tempSales[i] = sales[i];
+        }
+        
+        for (int i = 0 ; i < counter - 1; i++) {
+            for(int j = 0; j < counter - i - 1; j++) {
+                if (tempSales[j] < tempSales[j + 1]) {
+                    int temp = tempSales[j+1];
+                    tempSales[j + 1] = tempSales[j];
+                    tempSales[j] = temp;
+                    
+                    //swap names
+                    string holdName = tempNames[j + 1];
+                    tempNames[j + 1] =  tempNames[j];
+                    tempNames[j] = holdName;
+                }
+            }
+        }
+        cout << CYAN "=======SALES RANKING=======\n";
+        displaySales(tempNames, tempSales, counter);
+    }
+}
 
+void displayGraph(string names[], int sales[], int counter) {
+    clear_screen();
+    if (counter == 0) {
+        cout << RED "[!] ERROR: NO DATA LOGGED\n";
+    } else {
+        for (int i = 0; i < counter; i++) {
+            printf("%-15s :  ", names[i].c_str());
+            for (int j = 0; j < sales[i]; j++) {
+                cout << "\xDB"; //hex for solid block
+            }
+            cout << "\n";
+        }
+    }
+    wait_for_enter();
+}
