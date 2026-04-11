@@ -57,7 +57,7 @@ int main() {
                     wait_for_enter();
                     break;
                 }
-                cout << CYAN "===========SALES===========\n" << endl;
+                cout << YELLOW "===========SALES===========\n" << endl;
                 displaySales(itemNames, itemSales, counter);
                 break;
             case 3:
@@ -113,8 +113,7 @@ int getPositiveInt(string prompt) {
     int x;
 
     while (true) {
-        cout << BLUE + prompt;
-        cout << B_GREEN;
+        cout << BLUE + prompt;        cout << B_GREEN;
         cin >> x;
         cout << RESET;
         
@@ -176,7 +175,8 @@ void getSale(string names[], int sales[], int& counter) {
 }
 
 void displaySales(string names[], int sales[], int counter) {
-    printf("                  Quantity\n");
+
+    cout << CYAN "                  Quantity\n";
     for(int i = 0; i < counter; i++) {
         printf("%-15s :  %8d\n", names[i].c_str(), sales[i]);
     }
@@ -210,7 +210,7 @@ void sortSales(string names[], int sales[], int counter) {
                 }
             }
         }
-        cout << CYAN "=======SALES RANKING=======\n";
+        cout << YELLOW "=======SALES RANKING=======\n";
         displaySales(tempNames, tempSales, counter);
     }
 }
