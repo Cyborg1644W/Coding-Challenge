@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <cstdio>
-#include <windows.h>
 
 using std::cin;
 using std::endl;
@@ -9,6 +8,7 @@ using std::cout;
 using std::string;
 
 #ifdef _WIN32 
+#include <windows.h>
     void clear_screen() {
         system("cls");
         cout << "\n\n";
@@ -84,6 +84,18 @@ int main() {
 
 int displayMenu() {
     clear_screen();
+
+    cout << YELLOW;
+    cout << " \u2588\u2588\u2588\u2588\u2588  \u2588\u2588\u2588\u2588\u2588  \u2588      \u2588\u2588\u2588\u2588\u2588  \u2588\u2588\u2588\u2588\u2588\n";
+    cout << " \u2588      \u2588   \u2588  \u2588      \u2588      \u2588    \n";
+    cout << " \u2588\u2588\u2588\u2588\u2588  \u2588\u2588\u2588\u2588\u2588  \u2588      \u2588\u2588\u2588\u2588   \u2588\u2588\u2588\u2588\u2588\n";
+    cout << "     \u2588  \u2588   \u2588  \u2588      \u2588          \u2588\n";
+    cout << " \u2588\u2588\u2588\u2588\u2588  \u2588   \u2588  \u2588\u2588\u2588\u2588\u2588  \u2588\u2588\u2588\u2588\u2588  \u2588\u2588\u2588\u2588\u2588\n" RESET;
+    cout <<"";
+    cout << CYAN "  \u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\n";
+    cout << "    READY | v1.74 | by Reindel\n";
+    cout << "  \u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\n" RESET;
+    
     
     int choice;
     cout << YELLOW"[1] " CYAN"Enter Sales\n" RESET;
@@ -223,10 +235,11 @@ void displayGraph(string names[], int sales[], int counter) {
         for (int i = 0; i < counter; i++) {
             printf("%-15s :  ", names[i].c_str());
             for (int j = 0; j < sales[i]; j++) {
-                cout << "\xDB"; //hex for solid block
+                cout << "\u2588"; //hex for solid block
             }
             cout << "\n";
         }
     }
     wait_for_enter();
 }
+
