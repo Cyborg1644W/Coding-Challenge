@@ -6,7 +6,7 @@ from groq import Groq
 # 1. Initialize the Groq client
 try:
     client = Groq(
-        api_key="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" # Put your actual key here
+        api_key="API_KEY" # Put your actual key here
     )
 except Exception as e:
     print(f"Error initializing Groq client: {e}")
