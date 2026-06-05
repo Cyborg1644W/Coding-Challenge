@@ -16,4 +16,5 @@ number = input("What is your number: ")
 # result = number.count()
 number = number.replace("",", ")
 
-print(number)
+#using help
+print(help(str))

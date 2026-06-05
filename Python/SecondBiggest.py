@@ -29,3 +29,11 @@ def main():
 if __name__ == '__main__':
     main()
 
+
+def funcName(a , b):
+return a + b
+float funcNAme() {
+asdsa
+dsds
+dsad
+}
