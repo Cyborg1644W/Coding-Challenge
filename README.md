@@ -43,7 +43,6 @@ The repository is structured by language, topic, or source platform to keep navi
 📂 Coding_Challenge
  ├── 📂 C                      # C-specific solutions & exercises
  ├── 📂 C++                    # C++-specific implementations
- ├── 📂 InputValidation        # General code for processing & securing user inputs
  ├── 📂 LeetCode               # Challenges sourced from LeetCode (e.g., Rotate_Image.c)
  ├── 📂 Python                 # Python scripts, algorithms, and utilities
  ├── .gitignore                # Automatically ignores compiled binaries & system files
