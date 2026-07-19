@@ -1,0 +1,67 @@
+name: Daily Coding Challenge Metrics Log
+
+on:
+  schedule:
+    # 03:17 UTC daily ≈ 11:17 AM Philippine time.
+    - cron: '17 3 * * *'
+  workflow_dispatch: # lets you trigger it manually from the Actions tab to test
+
+permissions:
+  contents: write
+
+jobs:
+  log-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set git identity
+        run: |
+          git config user.name "Cyborg1644W"
+          git config user.email "reindelandrada@gmail.com"
+
+      - name: Compute per-folder metrics
+        run: |
+          mkdir -p .activity
+          FILE=.activity/metrics.md
+          DATE=$(date -u +'%Y-%m-%d')
+
+          count_loc() {
+            local dir=$1
+            if [ -d "$dir" ]; then
+              find "$dir" -type f -exec cat {} + 2>/dev/null | wc -l
+            else
+              echo 0
+            fi
+          }
+
+          C_LOC=$(count_loc "c")
+          PY_LOC=$(count_loc "python")
+          LC_LOC=$(count_loc "leetcode")
+          CPP_LOC=$(count_loc "cpp")
+          TOTAL=$((C_LOC + PY_LOC + LC_LOC + CPP_LOC))
+
+          if [ ! -f "$FILE" ]; then
+            echo "# Coding challenge progress log" > "$FILE"
+            echo "" >> "$FILE"
+            echo "| Date | C | Python | LeetCode | C++ | Total LOC | Δ Total |" >> "$FILE"
+            echo "|------|---|--------|----------|-----|-----------|---------|" >> "$FILE"
+            PREV_TOTAL=0
+          else
+            PREV_TOTAL=$(tail -n 1 "$FILE" | awk -F '|' '{gsub(/ /,"",$7); print $7}')
+            if ! [[ "$PREV_TOTAL" =~ ^[0-9]+$ ]]; then PREV_TOTAL=$TOTAL; fi
+          fi
+
+          DELTA=$((TOTAL - PREV_TOTAL))
+          if [ "$DELTA" -ge 0 ]; then DELTA_STR="+$DELTA"; else DELTA_STR="$DELTA"; fi
+
+          echo "| $DATE | $C_LOC | $PY_LOC | $LC_LOC | $CPP_LOC | $TOTAL | $DELTA_STR |" >> "$FILE"
+
+      - name: Commit and push
+        run: |
+          git add .activity/metrics.md
+          git commit -m "chore: daily coding challenge metrics ($(date -u +'%Y-%m-%d'))"
+          git push
