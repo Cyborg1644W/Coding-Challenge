@@ -1,9 +1,9 @@
 name: Daily Coding Challenge Metrics Log
-
 on:
   schedule:
-    # 03:17 UTC daily ≈ 11:17 AM Philippine time.
-    - cron: '0 14 * * *'
+    # 11:17 AM Philippine time daily — timezone field handles the UTC offset for you
+    - cron: '17 11 * * *'
+      timezone: 'Asia/Manila'
   workflow_dispatch: # lets you trigger it manually from the Actions tab to test
 
 permissions:
@@ -63,5 +63,9 @@ jobs:
       - name: Commit and push
         run: |
           git add .activity/metrics.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit — skipping."
+            exit 0
+          fi
           git commit -m "chore: daily coding challenge metrics ($(date -u +'%Y-%m-%d'))"
           git push
