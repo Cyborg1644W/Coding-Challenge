@@ -35,10 +35,9 @@ private:
         for (int i = 1; i < count; i++) {
             Student key = students[i];
             int j = i - 1;
-
-            while (j >= 0 && students[j].name > key.name) {
+            while(j >= 0 && key.name < students[j].name){
                 students[j + 1] = students[j];
-                j--; 
+                j--;
             }
             students[j + 1] = key;
         }
@@ -50,100 +49,88 @@ private:
 
 public:
     StudentRecord() = default;
-    StudentRecord (string file) : filename(file) {} 
+    StudentRecord(string file) : filename(file) {};
 
     void add_record(string name, float gpa) {
         if (count >= MAX) {
-            cout << "Record list is full.\n";
+            cout << "The List is Full.\n";
             return;
         }
         students[count].name = name;
         students[count].gpa = gpa;
         count++;
-        sort_records();
     }
 
     void delete_record(string name) {
         if (count <= 0) {
-            cout << "Record list is empty.\n";
-            return;
+            cout << "Student record are empty";
         }
         for (int i = 0; i < count; i++) {
-            if (students[i].name == name) {
-                for (int j = i; j < count - 1; j++) {
-                    students[j].name = students[j + 1].name;
+            if(name == students[i].name) {
+                for (int j = i; i < count - 1; j++) {
+                    students[j] = students[j + 1];
                 }
                 count--;
-                cout << "Record deleted.\n";
             }
         }
-        cout << "Student not found.\n";
     }
 
     void display() {
-        cout << string(12, '=') << "STUDENT RECORD" << string(12, '=') << endl;
-        if (count <= 0) {
-            cout << "\nNo student records found.\n\n";
-        } else {
-            cout << setw(5) << left << "No."
-            << setw(25) << left << "Name"
-            << setw(8) << right << "GPA" << '\n';
+        cout << setw(5) << left << "No." 
+        << setw(29)<< left << "Name" 
+        << setw(4) << right << "GPA" << endl;
 
-            for (int i = 0; i < count; i++) {
-                cout << left
-                << setw(5) << i + 1
-                << setw(25) << students[i].name
-                << right
-                << fixed << setprecision(2)
-                << setw(8) << students[i].gpa
-                << '\n';
-            }
+        for (int i = 0; i < count; i++) {
+            cout << setw(5) << left << i + 1
+            << setw(25) << left << students[i].name 
+            << right << fixed << setprecision(2)
+            << setw(8) << students[i].gpa << '\n';
         }
         print_footer();
     }
+
     void save() {
         fstream File;
         File.open(filename, ios::out);
         if (!File.is_open()) {
-            cout << "Error opening file.\n";
+            cout << "Cannot open the File.\n";
             return;
         }
-        for(int i = 0 ; i < count ; i++) {
-            File << students[i].name << ',' << students[i].gpa << endl; 
+
+        for (int i = 0; i < count; i++) {
+            File << students[i].name << ',' << students[i].gpa << endl;
         }
+        File.close();
     }
 
     void retrieve() {
-        fstream File(filename, ios::in);
-        
+        fstream File;
+        File.open(filename, ios::in);
         if (!File.is_open()) {
-            cout << "File not found. Starting fresh.\n";
+            cout << "File not found.\n";
             return;
         }
-        
-        count = 0;  // reset count
+
         string line;
-        
-        while (getline(File, line) && count < MAX) {
+        count = 0;
+        while(getline(File,line) && count < MAX) {
             stringstream ss(line);
             string name;
             float gpa;
-            
-            getline(ss, name, ',');     // read name until comma
-            ss >> gpa;                  // read gpa after comma
-            
+
+            getline(ss, name, ',');
+            ss >> gpa;
+
             students[count].name = name;
             students[count].gpa = gpa;
             count++;
         }
-        
         File.close();
     }
 };
 
 int main() {
     StudentRecord system("students.csv");
-
     system.retrieve();
     
     int choice;
