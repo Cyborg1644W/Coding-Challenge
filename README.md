@@ -44,6 +44,7 @@ The repository is structured by language, topic, or source platform to keep navi
  ├── 📂 C                      # C-specific solutions & exercises
  ├── 📂 C++                    # C++-specific implementations
  ├── 📂 LeetCode               # Challenges sourced from LeetCode (e.g., Rotate_Image.c)
+ ├── 📂 Java                   # Java files
  ├── 📂 Python                 # Python scripts, algorithms, and utilities
  ├── .gitignore                # Automatically ignores compiled binaries & system files
  └── README.md                 # This file
