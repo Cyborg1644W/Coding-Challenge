@@ -3,6 +3,8 @@
 #include <stdbool.h>
 
 int LogIn(int AccountPassword, bool IsRunning){
+
+    
     char AccountName[30];
     int Password, WrongPasswordCount=0;
 
@@ -122,10 +124,12 @@ int ChangePassword(int AccountPassword){
     scanf("%d", &ConfirmPassword);
     if (NewPassword == ConfirmPassword){
         printf("Password Changed Successfully\n");
+        Sleep(700);
         return NewPassword;
     }
     else {
         printf("Change Password Failed\n");
+        Sleep(700);
         return AccountPassword;
     }
 }

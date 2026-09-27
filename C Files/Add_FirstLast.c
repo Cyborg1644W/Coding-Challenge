@@ -17,6 +17,5 @@ int main(){
     printf("The Last Digit is %.0f\n", LastDigit);
     printf("The Sum of %.0f and %.0f is %.0f\n", FirstDigit, LastDigit, UserSum);
 
-    
     return 0;
 }
