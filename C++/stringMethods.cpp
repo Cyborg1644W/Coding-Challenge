@@ -29,7 +29,7 @@ string makeGmail(string name) {
 
     return name;
 }
-
+    
 string makeUserName(string name) {
     name = name.insert(0, "@");
 
@@ -54,7 +54,7 @@ string eraseCharacters(string name,int startIndex, int endIndex) {
     return updatedName;
 }
 
-int main(){
+    int main(){
     
     return 0;
 }

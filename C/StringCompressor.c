@@ -36,3 +36,6 @@ int main() {
     strCompress(compress);
     return 0;
 }
+
+s
+//func
