@@ -15,7 +15,7 @@ int main(){
     int tinapaySales[bread] = {}; 
     int *sales = tinapaySales; 
 
-    string tinapay[bread] = {"Monay", "Pandesal", "Ensaymada", "Empanada", "Bonete"}; 
+    string tinapay[bread] = {"Monay", "Pandesal", "Ensaymada", "Empanada", "Bonete"};
     string *woah = tinapay; 
 
     Products(bread, woah); 
@@ -23,7 +23,7 @@ int main(){
     Summary(HowMany, sales, woah);
 }
 
-void Products(int bread, string *woah){ 
+void Products(int bread, string *woah) { 
 
     cout << "------------- Floof Bakery -------------" << endl; 
     cout << "----------- List of products -----------" << endl; 
@@ -36,8 +36,7 @@ void Products(int bread, string *woah){
     cout << "---------------------------------------" << endl; 
 }
 
-int Sales(int bread, int *sales){
-
+int Sales(int bread, int *sales) {
     int NumSales;
     int ProNum; 
 
@@ -66,7 +65,7 @@ int Sales(int bread, int *sales){
     return NumSales; 
 }
 
-void Summary(int HowMany, int *sales, string *woah){
+void Summary(int HowMany, int *sales, string *woah) {
 
     cout << "---------------------------------------" << endl;
     for (int i = 0; i < HowMany; i++){

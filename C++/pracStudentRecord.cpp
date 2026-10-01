@@ -15,7 +15,6 @@
 #include <string>
 #include <sstream>
 
-
 using namespace std;
 
 #define MAX 100

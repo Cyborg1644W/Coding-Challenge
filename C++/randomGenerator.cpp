@@ -8,6 +8,7 @@ int generateRandom(int range){
 
 int main(){
     srand(time(NULL));
+    
     std::cout << generateRandom(100);
     return 0;
 }

@@ -17,7 +17,7 @@ int main(){
     //displaying output
     cout << "2nd Lowest : " << get_second_lowest(numbers, arraySize) << endl;
     cout << "2nd Highest : " << get_second_highest(numbers, arraySize) << endl;
-    cout << "The Mean is " << get_mean(numbers, arraySize) << endl;
+    cout << "Mean : " << get_mean(numbers, arraySize) << endl;
     return 0;
 }
 
@@ -46,7 +46,7 @@ int get_second_highest(int array[], int arraySize){
             highest = array[i];
         } else if (secondHighest > array[i]){
             secondHighest = array[i];
-        }
+        } 
     }
     return secondHighest;
 }

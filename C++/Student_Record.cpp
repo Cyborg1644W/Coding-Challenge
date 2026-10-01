@@ -111,6 +111,7 @@ public:
         for(int i = 0 ; i < count ; i++) {
             File << students[i].name << ',' << students[i].gpa << endl; 
         }
+        File.close();
     }
 
     void retrieve() {
